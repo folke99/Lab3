@@ -1,0 +1,72 @@
+
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
+public class FIFO implements Queue {
+
+	ArrayList<Object> lst = new ArrayList<Object>();
+	public static int arrayMaxSizeTracker = 0;
+
+	public void add(Object item) {
+		this.lst.add(item);
+		if (this.lst.size() > arrayMaxSizeTracker)
+			arrayMaxSizeTracker++;
+
+	}
+
+	public Object first() throws NoSuchElementException {
+		if (lst.isEmpty())
+			throw new NoSuchElementException();
+		else
+			return this.lst.get(0);
+	}
+
+	public boolean isEmpty() {
+		return this.lst.isEmpty();
+	}
+
+	public int maxSize() {
+		return arrayMaxSizeTracker;
+	}
+
+	public void removeFirst() {
+		if (lst.isEmpty())
+			throw new NoSuchElementException();
+		else
+			this.lst.remove(0);
+	}
+
+	public int size() {
+		return this.lst.size();
+	}
+
+	public boolean equals(Object f) throws ClassCastException {
+		if (((FIFO) f).size() == this.size()) {
+			System.out.println("SAME SIZE");
+			for (int i = 0; i < this.lst.size(); i++) {
+				System.out.println("FOR LOOP");
+				if (((FIFO) f).lst.get(i) != null && this.lst.get(i) != null) {
+					System.out.println("NOT NULL NULL");
+					if(!(this.lst.get(i) == (((FIFO) f).lst.get(i))))
+					{
+						System.out.println("NOT EQUALS");
+						return false;
+					}
+				}
+			}
+			System.out.println("NULL OR EQUALS");
+			return true;
+		} else
+			return false;
+	}
+
+
+	
+	public String toString() {
+		String printObjects = "";
+		for (int i = 0; i < this.lst.size(); i++) {
+			printObjects += "(" + String.valueOf(this.lst.get(i)) + ") ";
+		}
+		return "Queue: " + printObjects;
+	}
+}
